@@ -11,3 +11,4 @@ test-ledger
 keys/
 services/data/
 node_modules/
+web/dist/

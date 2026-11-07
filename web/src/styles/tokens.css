@@ -1,0 +1,39 @@
+/* Centinela: papel de seguridad, tinta de imprenta y tinta de sello */
+:root {
+    /* Color */
+    --paper: #e6ebe4; /* papel de seguridad verde grisáceo */
+    --paper-raised: #f1f4ef; /* hoja de formulario */
+    --ink: #1c2333; /* tinta de imprenta índigo */
+    --ink-muted: #5e6b66; /* texto secundario */
+    --rule: #b9c6be; /* líneas de formulario */
+    --guilloche: #9fb3a8; /* patrón de seguridad */
+    --stamp-cleared: #4b33b5; /* tinta violeta de sello: aprobado */
+    --stamp-denied: #c0122c; /* tinta roja de sello: denegado */
+    --warn: #8a5a00; /* advertencias */
+  
+    /* Tipografía */
+    --font-form: "Public Sans", system-ui, sans-serif; /* formularios oficiales */
+    --font-typed: "Courier Prime", "Courier New", monospace; /* valores escritos a máquina */
+  
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2.5rem;
+    --text-3xl: 3.5rem;
+  
+    /* Espaciado */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4.5rem;
+  
+    --measure: 68ch;
+    --page: 1120px;
+    --radius-sheet: 2px;
+  }
