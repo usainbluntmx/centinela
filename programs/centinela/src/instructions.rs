@@ -1,5 +1,9 @@
-pub mod initialize;
-pub mod increment;
+pub mod config;
+pub mod initialize_vault;
+pub mod pay;
+pub mod withdraw;
 
-pub use initialize::*;
-pub use increment::*;
+pub use config::*;
+pub use initialize_vault::*;
+pub use pay::*;
+pub use withdraw::*;
