@@ -9,3 +9,5 @@ test-ledger
 .env
 .env.*
 keys/
+services/data/
+node_modules/

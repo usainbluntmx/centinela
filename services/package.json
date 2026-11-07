@@ -1,0 +1,34 @@
+{
+  "name": "services",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "idl": "mkdir -p src/idl && cp ../target/idl/centinela.json src/idl/ && cp ../target/types/centinela.ts src/idl/",
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "smoke": "tsx src/scripts/smoke.ts",
+    "typecheck": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@anchor-lang/core": "^1.2.2",
+    "@solana/web3.js": "^1.99.0",
+    "bn.js": "^5.2.5",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.2.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}
