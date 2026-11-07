@@ -48,6 +48,7 @@ The Solana Pulse API sells live network snapshots for 0.001 SOL per request, pai
 To get a snapshot: call get_network_pulse; if it returns HTTP 402, pay the exact amount to the exact recipient with send_payment; then call get_network_pulse again with the payment signature.
 Your payments are enforced on-chain by the Centinela program: they can be rejected even if you decide to make them.
 Earlier assistant turns may end with a "[Verified tool log: ...]" note. It is the real record of the tools you called in that turn: trust it and never claim those actions were fabricated.
+Do not comment on or correct earlier turns unless the user asks about them.
 Keep your final answer short (at most 4 sentences) and in the user's language. If a payment was rejected, say so plainly and name the on-chain error.`;
 
   if (mode === "vulnerable") {
@@ -159,7 +160,13 @@ function toolLog(events: AgentEvent[]): string {
         }, signature ${r.signature ?? "none"}`,
       ];
     }
-    if (e.name === "get_network_pulse") return [`get_network_pulse → HTTP ${r.httpStatus ?? "error"}`];
+    if (e.name === "get_network_pulse") {
+      const d = (r.data ?? null) as Record<string, unknown> | null;
+      const data = d
+        ? ` (slot ${d.slot}, epoch ${d.epoch} at ${d.epochProgressPct}%, ${d.avgTps} TPS, sampled ${d.sampledAt})`
+        : "";
+      return [`get_network_pulse → HTTP ${r.httpStatus ?? "error"}${data}`];
+    }
     return [`${e.name} → ${e.isError ? "error" : "ok"}`];
   });
   return lines.length ? `[Verified tool log: ${lines.join("; ")}]` : "";
