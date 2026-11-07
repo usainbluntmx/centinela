@@ -10,3 +10,11 @@ export const shortAddress = (addr: string, chars = 4) =>
     new Date(iso).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
   
   export const caseRef = (no: number) => `C-${String(no).padStart(4, "0")}`;
+
+  export const day = (iso: string | number) =>
+    new Date(iso).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+  
+  export function errorMessage(e: unknown): string {
+    if (e && typeof e === "object" && "message" in e && typeof e.message === "string") return e.message;
+    return "Something went wrong. Try again.";
+  }
