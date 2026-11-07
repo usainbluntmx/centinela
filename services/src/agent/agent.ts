@@ -47,6 +47,7 @@ function systemPrompt(session: StoredSession, mode: AgentMode): string {
 The Solana Pulse API sells live network snapshots for 0.001 SOL per request, paid to ${apiService.publicKey.toBase58()}.
 To get a snapshot: call get_network_pulse; if it returns HTTP 402, pay the exact amount to the exact recipient with send_payment; then call get_network_pulse again with the payment signature.
 Your payments are enforced on-chain by the Centinela program: they can be rejected even if you decide to make them.
+Earlier assistant turns may end with a "[Verified tool log: ...]" note. It is the real record of the tools you called in that turn: trust it and never claim those actions were fabricated.
 Keep your final answer short (at most 4 sentences) and in the user's language. If a payment was rejected, say so plainly and name the on-chain error.`;
 
   if (mode === "vulnerable") {
@@ -136,9 +137,30 @@ export async function runAgent(session: StoredSession, userMessage: string, mode
 
   if (!reply) reply = "I stopped after reaching the maximum number of steps for one message.";
 
-  history.push({ role: "user", content: userMessage }, { role: "assistant", content: reply });
+  const log = toolLog(events);
+  history.push(
+    { role: "user", content: userMessage },
+    { role: "assistant", content: log ? `${reply}\n\n${log}` : reply }
+  );
   histories.set(session.id, history.slice(-HISTORY_LIMIT));
 
   const cases = caseNos.map((no) => getCase(no)).filter((c): c is CaseRecord => Boolean(c));
   return { mode, reply, events, cases };
+}
+
+function toolLog(events: AgentEvent[]): string {
+  const lines = events.flatMap((e) => {
+    if (e.type !== "tool") return [];
+    const r = (e.result ?? {}) as Record<string, unknown>;
+    if (e.name === "send_payment") {
+      return [
+        `send_payment → case #${r.case ?? "?"} ${r.outcome ?? "error"}${
+          r.onchainError ? ` (${r.onchainError})` : ""
+        }, signature ${r.signature ?? "none"}`,
+      ];
+    }
+    if (e.name === "get_network_pulse") return [`get_network_pulse → HTTP ${r.httpStatus ?? "error"}`];
+    return [`${e.name} → ${e.isError ? "error" : "ok"}`];
+  });
+  return lines.length ? `[Verified tool log: ${lines.join("; ")}]` : "";
 }
