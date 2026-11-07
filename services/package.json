@@ -11,7 +11,8 @@
     "smoke": "tsx src/scripts/smoke.ts",
     "typecheck": "tsc",
     "paid-smoke": "tsx src/scripts/paid-smoke.ts",
-    "guard-smoke": "tsx src/scripts/guard-smoke.ts"
+    "guard-smoke": "tsx src/scripts/guard-smoke.ts",
+    "agent-smoke": "tsx src/scripts/agent-smoke.ts"
   },
   "keywords": [],
   "author": "",

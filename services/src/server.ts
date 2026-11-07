@@ -2,6 +2,7 @@ import express, { type NextFunction, type Request, type Response } from "express
 import cors from "cors";
 import { paidRouter } from "./api/paid";
 import { reviewPayment } from "./guard";
+import { agentRouter } from "./agent/routes";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { apiService, connection, explorerAddress, explorerTx, LIMITS, PORT, PROGRAM_ID, treasury } from "./shared/config";
 import {
@@ -137,6 +138,7 @@ app.post("/api/session/:id/guard", async (req, res) => {
 });
 
 app.use("/api/paid", paidRouter);
+app.use("/api", agentRouter);
 
 // ---------- Errores ----------
 

@@ -36,3 +36,4 @@ export const explorerTx = (sig: string) =>
   `https://explorer.solana.com/tx/${sig}?cluster=devnet`;
 export const explorerAddress = (addr: string) =>
   `https://explorer.solana.com/address/${addr}?cluster=devnet`;
+export const attacker = loadKeypair(process.env.ATTACKER_KEYPAIR ?? "../keys/attacker.json");
