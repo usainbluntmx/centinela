@@ -1,6 +1,7 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import cors from "cors";
 import { paidRouter } from "./api/paid";
+import { reviewPayment } from "./guard";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { apiService, connection, explorerAddress, explorerTx, LIMITS, PORT, PROGRAM_ID, treasury } from "./shared/config";
 import {
@@ -125,6 +126,14 @@ app.post("/api/session/:id/recipients", async (req, res) => {
   if (action === "add") return sendTx(res, await addRecipient(ownerOf(s), vaultOf(s), address));
   if (action === "remove") return sendTx(res, await removeRecipient(ownerOf(s), vaultOf(s), address));
   throw new HttpError(400, "INVALID_INPUT", "action must be 'add' or 'remove'");
+});
+
+app.post("/api/session/:id/guard", async (req, res) => {
+  const s = getSession(req.params.id);
+  const amountSol = solAmount(req.body?.amountSol, "amountSol");
+  const recipient = String(req.body?.recipient ?? "");
+  const reason = typeof req.body?.reason === "string" ? req.body.reason.slice(0, 500) : undefined;
+  res.json(await reviewPayment(s, { recipient, amountSol, reason }));
 });
 
 app.use("/api/paid", paidRouter);

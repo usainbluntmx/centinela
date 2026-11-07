@@ -10,7 +10,8 @@
     "start": "tsx src/server.ts",
     "smoke": "tsx src/scripts/smoke.ts",
     "typecheck": "tsc",
-    "paid-smoke": "tsx src/scripts/paid-smoke.ts"
+    "paid-smoke": "tsx src/scripts/paid-smoke.ts",
+    "guard-smoke": "tsx src/scripts/guard-smoke.ts"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,7 @@
   "type": "module",
   "dependencies": {
     "@anchor-lang/core": "^1.2.2",
+    "@anthropic-ai/sdk": "^1.6.0",
     "@solana/web3.js": "^1.99.0",
     "bn.js": "^5.2.5",
     "cors": "^2.8.6",
