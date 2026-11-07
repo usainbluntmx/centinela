@@ -9,7 +9,8 @@
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
     "smoke": "tsx src/scripts/smoke.ts",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "paid-smoke": "tsx src/scripts/paid-smoke.ts"
   },
   "keywords": [],
   "author": "",
