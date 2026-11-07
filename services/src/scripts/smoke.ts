@@ -3,7 +3,7 @@ import { apiService, explorerAddress } from "../shared/config";
 import { agentOf, createSession } from "../shared/sessions";
 import { fetchVault, pay } from "../shared/vault";
 
-const session = await createSession("smoke-test");
+const session = await createSession(`script-${Date.now()}`);
 const vault = new PublicKey(session.vault);
 console.log("Sesión:", session.id);
 console.log("Bóveda:", explorerAddress(session.vault));
@@ -22,4 +22,4 @@ for (const [label, recipient, sol] of cases) {
   console.log(`\n${label}\n  ${verdict}\n  ${r.explorer}`);
 }
 
-console.log("\nEstado final:", await fetchVault(vault));
+console.log("\nEstado final:", await fetchVault(vault));process.exit(0);
