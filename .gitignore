@@ -12,3 +12,4 @@ keys/
 services/data/
 node_modules/
 web/dist/
+deploy.env

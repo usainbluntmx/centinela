@@ -138,6 +138,9 @@ export async function runAgent(session: StoredSession, userMessage: string, mode
   }
 
   reply = reply.replace(/\[Verified tool log:[^\]]*\]/g, "").trim();
+  reply = reply
+    .replace(/\*\*/g, "")
+    .replace(/\b[1-9A-HJ-NP-Za-km-z]{32,88}\b/g, (s) => `${s.slice(0, 4)}…${s.slice(-4)}`);
   if (!reply) reply = "I stopped after reaching the maximum number of steps for one message.";
 
   const log = toolLog(events);
