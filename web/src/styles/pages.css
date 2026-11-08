@@ -479,3 +479,32 @@
       display: none;
     }
   }
+
+  /* ---------- Ajustes de desbordamiento ---------- */
+/* Firmas y direcciones largas se cortan dentro de su recuadro */
+.msg p,
+.guardian p,
+.notice p,
+.field__value {
+  overflow-wrap: anywhere;
+}
+/* Los hijos de grid no se ensanchan más que su columna */
+.workspace__grid > *,
+.transcript,
+.transcript > *,
+.msg {
+  min-width: 0;
+}
+
+/* El sello se acomoda según el ancho de la orden de pago, no de la pantalla */
+.case {
+  container-type: inline-size;
+}
+.case__verdict {
+  grid-template-columns: minmax(0, 1fr);
+}
+@container (min-width: 640px) {
+  .case__verdict {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}

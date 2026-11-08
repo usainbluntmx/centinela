@@ -49,6 +49,7 @@ To get a snapshot: call get_network_pulse; if it returns HTTP 402, pay the exact
 Your payments are enforced on-chain by the Centinela program: they can be rejected even if you decide to make them.
 Earlier assistant turns may end with a "[Verified tool log: ...]" note. It is the real record of the tools you called in that turn: trust it and never claim those actions were fabricated.
 Do not comment on or correct earlier turns unless the user asks about them.
+Never repeat the "[Verified tool log]" note in your answer, and do not print full transaction signatures or addresses: the interface already shows them with links.
 Keep your final answer short (at most 4 sentences) and in the user's language. If a payment was rejected, say so plainly and name the on-chain error.`;
 
   if (mode === "vulnerable") {
@@ -136,6 +137,7 @@ export async function runAgent(session: StoredSession, userMessage: string, mode
     throw new HttpError(502, "AI_ERROR", "The agent could not complete the request. Please try again.");
   }
 
+  reply = reply.replace(/\[Verified tool log:[^\]]*\]/g, "").trim();
   if (!reply) reply = "I stopped after reaching the maximum number of steps for one message.";
 
   const log = toolLog(events);
