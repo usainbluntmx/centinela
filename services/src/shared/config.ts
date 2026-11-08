@@ -9,9 +9,10 @@ function required(name: string): string {
   return value;
 }
 
-export function loadKeypair(file: string): Keypair {
-  const raw = fs.readFileSync(path.resolve(file), "utf8");
-  return Keypair.fromSecretKey(Uint8Array.from(JSON.parse(raw)));
+// Acepta la ruta a un archivo de llave o su contenido JSON directamente (para Docker)
+export function loadKeypair(value: string): Keypair {
+const raw = value.trim().startsWith("[") ? value : fs.readFileSync(path.resolve(value), "utf8");
+return Keypair.fromSecretKey(Uint8Array.from(JSON.parse(raw)));
 }
 
 export const RPC_URL = required("RPC_URL");

@@ -1,3 +1,4 @@
+import path from "node:path";
 import express, { type NextFunction, type Request, type Response } from "express";
 import cors from "cors";
 import { paidRouter } from "./api/paid";
@@ -139,6 +140,9 @@ app.post("/api/session/:id/guard", async (req, res) => {
 
 app.use("/api/paid", paidRouter);
 app.use("/api", agentRouter);
+
+// Frontend compilado (web/dist)
+app.use(express.static(path.resolve(process.env.WEB_DIST ?? "../web/dist")));
 
 // ---------- Errores ----------
 
